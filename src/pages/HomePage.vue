@@ -7,11 +7,7 @@
         :svgIcon="'play-icon'"
         :isBold="true"
       >
-        <a
-          class="hover:text-teal-400 transition-colors duration-500"
-          :href="`/tracker/${tracker.id}`"
-          >{{ tracker.name }}</a
-        >
+        <p>{{ tracker.name }}</p>
       </list-item>
     </div>
   </div>
