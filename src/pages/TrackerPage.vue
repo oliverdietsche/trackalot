@@ -31,9 +31,16 @@
         </div>
         <div class="text-left">
           <button
+            v-on:click="deleteTracker"
+            type="button"
+            class="px-4 py-2 mr-8 text-white duration-500 bg-red-900 rounded focus:outline-transparent hover:bg-red-500 transition-bg"
+          >
+            Delete
+          </button>
+          <button
             v-on:click="cancelEdit"
             type="button"
-            class="px-4 py-2 mr-8 text-white duration-500 bg-gray-600 rounded focus:outline-transparent hover:bg-red-500 transition-bg"
+            class="px-4 py-2 mr-8 text-white duration-500 bg-gray-700 rounded focus:outline-transparent hover:bg-gray-500 transition-bg"
           >
             Cancel
           </button>
@@ -238,11 +245,19 @@ export default defineComponent({
       if (this.isEditOverlayOpen)
         setTimeout(() => this.$refs.newTrackerNameInput.focus(), 1);
     },
+    deleteTracker() {
+      if (!confirm('Do you really want to delete this tracker?')) return;
+      this.trackerList = this.trackerList.filter(
+        (entry) => entry.id !== this.tracker.id
+      );
+      localStorage.removeItem(this.tracker.id);
+      this.$router.push('/');
+    },
     cancelEdit() {
       this.toggleEditOverlay();
       this.newTrackerName = this.tracker.name;
     },
-    saveEdit(e) {
+    saveEdit(e: Event) {
       e.preventDefault();
       this.toggleEditOverlay();
       this.trackerList = this.trackerList.map((entry) =>
