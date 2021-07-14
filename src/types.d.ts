@@ -1,19 +1,30 @@
-export interface ITrackEntry {
+export type TTrackerList = {
+  id: string;
+  name: string;
+}[];
+
+export interface ITracker {
+  id: string;
+  name: string;
+  activities: IActivity[];
+  activeActivityId?: string;
+}
+
+export interface IActivity {
   id: string;
   name: string;
   logs: ILog[];
 }
 
 export interface ILog {
-  id: string;
-  name: string;
-  entries: ILogEntry[];
+  /**
+   * Start date and time in RFC3339 format
+   */
+  start: string;
+  /**
+   * Start date and time in RFC3339 format
+   */
+  end?: string;
 }
 
-export interface ILogEntry {
-  start: Date;
-  /**
-   * Duration in seconds
-   */
-  duration: number;
-}
+export type TSvgIcon = 'play-icon' | 'cancel-icon' | 'edit-icon';
